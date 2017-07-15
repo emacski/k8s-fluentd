@@ -4,6 +4,8 @@ FROM ubuntu:17.10
 LABEL image.name="k8s-fluentd" \
       image.maintainer="Erik Maciejewski <mr.emacski@gmail.com>"
 
+COPY fluent-plugin-systemd-0.2.0.gem /
+
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     build-essential \
@@ -16,10 +18,11 @@ RUN apt-get update \
   && chmod +x /usr/local/bin/env-config-writer \
   # install fluentd
   && gem install --no-document oj -v 3.1.3 \
-  && gem install --no-document fluentd -v 0.14.17 \
+  && gem install --no-document fluentd -v 0.14.19 \
   && fluent-gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 0.27.0 \
   && fluent-gem install --no-document fluent-plugin-elasticsearch -v 1.9.5 \
-  && fluent-gem install --no-document fluent-plugin-systemd -v 0.2.0 \
+  # && fluent-gem install --no-document fluent-plugin-systemd -v 0.2.0 \
+  && fluent-gem install --no-document ./fluent-plugin-systemd-0.2.0.gem \
   && mkdir -p /etc/fluent && mkdir -p /var/log/fluentd \
   # clean up
   && apt-get remove -y --auto-remove \

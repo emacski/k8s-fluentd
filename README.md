@@ -12,7 +12,7 @@ these services are often managed by systemd.
 
 | Component | Version |
 | --------- | ------- |
-| fluentd | 0.14.17 |
+| fluentd | 0.14.19 |
 | fluent-plugin-elasticsearch | 1.9.5 |
 | fluent-plugin-kubernetes_metadata_filter | 0.27.0 |
 | fluent-plugin-systemd | 0.2.0 |

@@ -11,9 +11,13 @@
   @type systemd
   path /var/log/journal
   filters [{ "_SYSTEMD_UNIT": "{{.fluentd_systemd_docker_service}}" }]
-  strip_underscores true
   read_from_head true
   tag docker
+  <entry>
+    field_map { "MESSAGE": "log" }
+    fields_strip_underscores true
+    fields_lowercase true
+  </entry>
   <storage>
     @type local
     persistent true
@@ -37,9 +41,13 @@
   @type systemd
   path /var/log/journal
   filters [{ "_SYSTEMD_UNIT": "{{.fluentd_systemd_kubelet_service}}" }]
-  strip_underscores true
   read_from_head true
   tag kubelet
+  <entry>
+    field_map { "MESSAGE": "log" }
+    fields_strip_underscores true
+    fields_lowercase true
+  </entry>
   <storage>
     @type local
     persistent true

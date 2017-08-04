@@ -3,10 +3,7 @@
 Kubernetes Fluentd (Elasticsearch)
 ----------------------------------
 
-Alternative fluentd docker image designed as a drop-in replacement for the
-fluentd-es-image in the fluentd-elasticsearch cluster-level logging addon. This
-image provides support for shipping journald logs for docker and kubelet since
-these services are often managed by systemd.
+Alternative fluentd docker image designed as a drop-in replacement for the fluentd-es-image in the fluentd-elasticsearch cluster-level logging addon. This image provides support for shipping journald logs for docker and kubelet since these services are often managed by systemd.
 
 **Components**
 
@@ -15,17 +12,18 @@ these services are often managed by systemd.
 | fluentd | 0.14.19 |
 | fluent-plugin-elasticsearch | 1.9.5 |
 | fluent-plugin-kubernetes_metadata_filter | 0.27.0 |
-| fluent-plugin-systemd | 0.2.0 |
+| fluent-plugin-systemd | 0.3.0 |
 
 **Configuration**
 
+Uses [ReDACT](https://github.com/emacski/redact) for fluentd configuration.
+
 | Environment Variable | Description |
 | -------------------- | ----------- |
-| `FLUENTD_ES_HOST` | The elasticsearch host to connect to (Default: `elasticsearch-logging`) |
-| `FLUENTD_ES_PORT` | The elasticsearch API port (Default: `9200`) |
-| `FLUENTD_SYSTEMD_DOCKER_SERVICE` | The name of the systemd docker service (Example: `docker.service`). If supplied fluentd will parse logs from the system journal, otherwise fluentd will look for log files on disk (Default: empty) |
-| `FLUENTD_SYSTEMD_KUBELET_SERVICE` | The name of the systemd kubelet service (Example: `kubelet.service`). If supplied fluentd will parse logs from the system journal, otherwise fluentd will look for log files on disk (Default: empty) |
-| `FLUENTD_EXTENDED_CONFIG` | Used to add custom additional configuration directives (Default: empty) |
+| `fluentd_es_host` | The elasticsearch host to connect to (Default: `elasticsearch-logging`) |
+| `fluentd_es_port` | The elasticsearch API port (Default: `9200`) |
+| `fluentd_systemd_docker_service` | The name of the systemd docker service (Example: `docker.service`). If supplied fluentd will parse logs from the system journal, otherwise fluentd will look for log files on disk (Default: empty) |
+| `fluentd_systemd_kubelet_service` | The name of the systemd kubelet service (Example: `kubelet.service`). If supplied fluentd will parse logs from the system journal, otherwise fluentd will look for log files on disk (Default: empty) |
 
 **Example DaemonSet**
 ```yaml
@@ -53,15 +51,13 @@ spec:
       - key: "CriticalAddonsOnly"
         operator: "Exists"
       terminationGracePeriodSeconds: 30
-      imagePullSecrets:
-      - name: gitlab
       containers:
       - name: fluentd-es
         image: emacski/k8s-fluentd:latest
         env:
-        - name: FLUENTD_SYSTEMD_DOCKER_SERVICE
+        - name: fluentd_systemd_docker_service
           value: "docker.service"
-        - name: FLUENTD_SYSTEMD_KUBELET_SERVICE
+        - name: fluentd_systemd_kubelet_service
           value: "kubelet.service"
         resources:
           limits:

@@ -21,7 +21,7 @@
   <storage>
     @type local
     persistent true
-    path /var/log/fluentd/docker.log.pos
+    path /var/log/fluentd-docker.log.pos
   </storage>
 </source>
 {{- else -}}
@@ -30,7 +30,7 @@
   @type tail
   format /^time="(?<time>[^)]*)" level=(?<severity>[^ ]*) msg="(?<message>[^"]*)"( err="(?<error>[^"]*)")?( statusCode=($<status_code>\d+))?/
   path /var/log/docker.log
-  pos_file /var/log/fluentd/docker.log.pos
+  pos_file /var/log/fluentd.log.pos
   tag docker
 </source>
 {{- end}}
@@ -51,7 +51,7 @@
   <storage>
     @type local
     persistent true
-    path /var/log/fluentd/kubelet.log.pos
+    path /var/log/fluentd-kubelet.log.pos
   </storage>
 </source>
 {{- else -}}
@@ -64,7 +64,7 @@
   format1 /^(?<severity>\w)(?<time>\d{4} [^\s]*)\s+(?<pid>\d+)\s+(?<source>[^ \]]+)\] (?<message>.*)/
   time_format %m%d %H:%M:%S.%N
   path /var/log/kubelet.log
-  pos_file /var/log/fluentd/kubelet.log.pos
+  pos_file /var/log/fluentd.log.pos
   tag kubelet
 </source>
 
@@ -77,7 +77,7 @@
   format1 /^(?<severity>\w)(?<time>\d{4} [^\s]*)\s+(?<pid>\d+)\s+(?<source>[^ \]]+)\] (?<message>.*)/
   time_format %m%d %H:%M:%S.%N
   path /var/log/kube-proxy.log
-  pos_file /var/log/fluentd/kube-proxy.log.pos
+  pos_file /var/log/fluentd.log.pos
   tag kube-proxy
 </source>
 
@@ -90,7 +90,7 @@
   format1 /^(?<severity>\w)(?<time>\d{4} [^\s]*)\s+(?<pid>\d+)\s+(?<source>[^ \]]+)\] (?<message>.*)/
   time_format %m%d %H:%M:%S.%N
   path /var/log/kube-apiserver.log
-  pos_file /var/log/fluentd/kube-apiserver.log.pos
+  pos_file /var/log/fluentd.log.pos
   tag kube-apiserver
 </source>
 
@@ -103,7 +103,7 @@
   format1 /^(?<severity>\w)(?<time>\d{4} [^\s]*)\s+(?<pid>\d+)\s+(?<source>[^ \]]+)\] (?<message>.*)/
   time_format %m%d %H:%M:%S.%N
   path /var/log/kube-controller-manager.log
-  pos_file /var/log/fluentd/kube-controller-manager.log.pos
+  pos_file /var/log/fluentd.log.pos
   tag kube-controller-manager
 </source>
 
@@ -116,7 +116,7 @@
   format1 /^(?<severity>\w)(?<time>\d{4} [^\s]*)\s+(?<pid>\d+)\s+(?<source>[^ \]]+)\] (?<message>.*)/
   time_format %m%d %H:%M:%S.%N
   path /var/log/kube-scheduler.log
-  pos_file /var/log/fluentd/kube-scheduler.log.pos
+  pos_file /var/log/fluentd.log.pos
   tag kube-scheduler
 </source>
 
@@ -129,7 +129,7 @@
   format1 /^(?<severity>\w)(?<time>\d{4} [^\s]*)\s+(?<pid>\d+)\s+(?<source>[^ \]]+)\] (?<message>.*)/
   time_format %m%d %H:%M:%S.%N
   path /var/log/rescheduler.log
-  pos_file /var/log/fluentd/rescheduler.log.pos
+  pos_file /var/log/fluentd.log.pos
   tag rescheduler
 </source>
 
@@ -142,7 +142,7 @@
   format1 /^(?<severity>\w)(?<time>\d{4} [^\s]*)\s+(?<pid>\d+)\s+(?<source>[^ \]]+)\] (?<message>.*)/
   time_format %m%d %H:%M:%S.%N
   path /var/log/cluster-autoscaler.log
-  pos_file /var/log/fluentd/cluster-autoscaler.log.pos
+  pos_file /var/log/fluentd.log.pos
   tag cluster-autoscaler
 </source>
 {{- end}}
@@ -151,7 +151,7 @@
 <source>
   @type tail
   path /var/log/containers/*.log
-  pos_file /var/log/fluentd/containers.log.pos
+  pos_file /var/log/fluentd.log.pos
   time_format %Y-%m-%dT%H:%M:%S.%NZ
   tag kubernetes.*
   format json

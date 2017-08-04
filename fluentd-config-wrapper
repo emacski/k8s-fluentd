@@ -1,4 +1,0 @@
-#!/bin/bash
-env-config-writer /fluent.conf.etp /etc/fluent/fluent.conf
-exec fluentd "$@"
-

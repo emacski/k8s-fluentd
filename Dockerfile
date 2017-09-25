@@ -16,9 +16,9 @@ RUN apt-get update \
     && chmod +x /usr/bin/redact \
     # install fluentd
     && gem install --no-document oj -v 3.1.3 \
-    && gem install --no-document fluentd -v 0.14.19 \
-    && fluent-gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 0.27.0 \
-    && fluent-gem install --no-document fluent-plugin-elasticsearch -v 1.9.5 \
+    && gem install --no-document fluentd -v 0.14.20 \
+    && fluent-gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 0.29.0 \
+    && fluent-gem install --no-document fluent-plugin-elasticsearch -v 1.10.0 \
     && fluent-gem install --no-document fluent-plugin-systemd -v 0.3.0 \
     && mkdir -p /etc/fluent && mkdir -p /var/log/fluentd \
     # clean up

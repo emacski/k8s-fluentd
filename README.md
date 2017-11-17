@@ -9,9 +9,9 @@ Alternative fluentd docker image designed as a drop-in replacement for the fluen
 
 | Component | Version |
 | --------- | ------- |
-| fluentd | 0.14.20 |
-| fluent-plugin-elasticsearch | 1.10.2 |
-| fluent-plugin-kubernetes_metadata_filter | 0.29.0 |
+| fluentd | 0.14.23 |
+| fluent-plugin-elasticsearch | 2.0.0 |
+| fluent-plugin-kubernetes_metadata_filter | 0.32.0 |
 | fluent-plugin-systemd | 0.3.1 |
 
 **Configuration**

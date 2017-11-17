@@ -13,10 +13,10 @@ RUN apt-get update \
         libjemalloc1 \
     && curl -L https://github.com/emacski/redact/releases/download/v0.2.0/redact -o /usr/bin/redact \
     && chmod +x /usr/bin/redact \
-    && gem install --no-document oj -v 3.1.3 \
-    && gem install --no-document fluentd -v 0.14.20 \
-    && fluent-gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 0.29.0 \
-    && fluent-gem install --no-document fluent-plugin-elasticsearch -v 1.10.2 \
+    && gem install --no-document oj -v 3.3.9 \
+    && gem install --no-document fluentd -v 0.14.23 \
+    && fluent-gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 0.32.0 \
+    && fluent-gem install --no-document fluent-plugin-elasticsearch -v 2.0.0 \
     && fluent-gem install --no-document fluent-plugin-systemd -v 0.3.1 \
     && mkdir -p /etc/fluent && mkdir -p /var/log/fluentd \
     && apt-get remove -y --auto-remove \

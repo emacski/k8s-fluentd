@@ -32,10 +32,17 @@ release: _validate-release build push
 	docker tag $(NS)/$(REPO):$(VERSION) $(NS)/$(REPO):latest
 	docker push $(NS)/$(REPO):latest
 
-clean:
+cleanup:
+	# remove untagged and dangling images
 	@docker image prune -f
 	@docker images -f "label=image.name=$(REPO)" | grep "none" && \
 	docker rmi $$(docker images -f "label=image.name=$(REPO)" | grep "none" | awk '{print $$3}') || \
+	exit 0
+
+clean:
+	# remove all images for namespace emacski and repo
+	@docker images -f "label=image.name=$(REPO)" | grep "$(NS)" && \
+	docker rmi $$(docker images -f "label=image.name=$(REPO)" | grep "$(NS)" | awk '{print $$3}') || \
 	exit 0
 
 default: build

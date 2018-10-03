@@ -4,6 +4,8 @@ FROM ubuntu:17.10
 LABEL image.name="k8s-fluentd" \
       image.maintainer="Erik Maciejewski <mr.emacski@gmail.com>"
 
+COPY ./Gemfile /Gemfile
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
@@ -13,11 +15,8 @@ RUN apt-get update \
         libjemalloc1 \
     && curl -L https://github.com/emacski/redact/releases/download/v0.2.0/redact -o /usr/bin/redact \
     && chmod +x /usr/bin/redact \
-    && gem install --no-document oj -v 3.3.9 \
-    && gem install --no-document fluentd -v 0.14.23 \
-    && fluent-gem install --no-document fluent-plugin-kubernetes_metadata_filter -v 0.32.0 \
-    && fluent-gem install --no-document fluent-plugin-elasticsearch -v 2.0.0 \
-    && fluent-gem install --no-document fluent-plugin-systemd -v 0.3.1 \
+    && echo 'gem: --no-document' >> /etc/gemrc \
+    && gem install --file Gemfile \
     && mkdir -p /etc/fluent && mkdir -p /var/log/fluentd \
     && apt-get remove -y --auto-remove \
         build-essential \

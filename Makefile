@@ -7,6 +7,8 @@ GIT_COMMIT?=none
 
 .PHONY: build push shell run _validate-release release clean
 
+default: build
+
 build:
 	docker build --pull \
 	--build-arg GIT_URL=$(GIT_URL) \
@@ -45,4 +47,4 @@ clean:
 	docker rmi $$(docker images -f "label=image.name=$(REPO)" | grep "$(NS)" | awk '{print $$3}') || \
 	exit 0
 
-default: build
+# && gem install --no-document oj -v 3.3.9

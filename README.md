@@ -9,10 +9,7 @@ Alternative fluentd docker image designed as a drop-in replacement for the fluen
 
 | Component | Version |
 | --------- | ------- |
-| fluentd | 0.14.23 |
-| fluent-plugin-elasticsearch | 2.0.0 |
-| fluent-plugin-kubernetes_metadata_filter | 0.32.0 |
-| fluent-plugin-systemd | 0.3.1 |
+| fluentd | 1.2.4 |
 
 **Configuration**
 
@@ -22,8 +19,7 @@ Uses [ReDACT](https://github.com/emacski/redact) for fluentd configuration.
 | -------------------- | ----------- |
 | `fluentd_es_host` | The elasticsearch host to connect to (Default: `elasticsearch-logging`) |
 | `fluentd_es_port` | The elasticsearch API port (Default: `9200`) |
-| `fluentd_systemd_docker_service` | The name of the systemd docker service (Example: `docker.service`). If supplied fluentd will parse logs from the system journal, otherwise fluentd will look for log files on disk (Default: empty) |
-| `fluentd_systemd_kubelet_service` | The name of the systemd kubelet service (Example: `kubelet.service`). If supplied fluentd will parse logs from the system journal, otherwise fluentd will look for log files on disk (Default: empty) |
+| `fluentd_use_journald` | Use journald for retrieving top level service logs like docker and kubelet (Default: empty) |
 
 **Example DaemonSet**
 ```yaml
@@ -55,10 +51,8 @@ spec:
       - name: fluentd-es
         image: emacski/k8s-fluentd:latest
         env:
-        - name: fluentd_systemd_docker_service
-          value: "docker.service"
-        - name: fluentd_systemd_kubelet_service
-          value: "kubelet.service"
+        - name: fluentd_has_systemd
+          value: "yes"
         resources:
           limits:
             memory: 200Mi

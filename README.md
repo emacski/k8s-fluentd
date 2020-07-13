@@ -1,7 +1,8 @@
-[![Build Status](https://travis-ci.org/emacski/k8s-fluentd.svg?branch=master)](https://travis-ci.org/emacski/k8s-fluentd)
+# DEPRECATED
 
-Kubernetes Fluentd (Elasticsearch)
-----------------------------------
+This project is **obsolete** and no longer maintained. Refer to https://kubernetes.io/docs/home/ for kubernetes logging configuration.
+
+## Kubernetes Fluentd (Elasticsearch)
 
 Alternative fluentd docker image designed as a drop-in replacement for the fluentd-es-image in the fluentd-elasticsearch cluster-level logging addon. This image provides support for shipping journald logs for docker and kubelet since these services are often managed by systemd.
 
